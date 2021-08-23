@@ -10,6 +10,9 @@ export default class Header extends Component {
 							<a href="/" className="navbar-brand">
 								Employee Management
 							</a>
+							<a href="/add-employee" className="navbar-brand">
+								Add Employee
+							</a>
 						</div>
 					</nav>
 				</header>
