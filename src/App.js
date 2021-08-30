@@ -4,6 +4,7 @@ import EmployeeForm from './components/employee-form/EmployeeForm';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import ListEmployee from './components/listEmployee/ListEmployee';
+import UpdateEmployee from './components/update-employee/UpdateEmployee';
 
 function App() {
 	return (
@@ -14,6 +15,10 @@ function App() {
 					<Switch>
 						<Route exact path="/" component={ListEmployee} />
 						<Route path="/add-employee" component={EmployeeForm} />
+						<Route
+							path="/update-employee/:id"
+							component={UpdateEmployee}
+						/>
 					</Switch>
 				</div>
 				<Footer />
