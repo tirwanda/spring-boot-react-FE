@@ -6,6 +6,7 @@ export default class EmployeeForm extends Component {
 		super(props);
 
 		this.state = {
+			id: this.props.match.params.id,
 			firstName: '',
 			lastName: '',
 			email: '',
@@ -15,6 +16,21 @@ export default class EmployeeForm extends Component {
 		this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
 		this.changeEmailHandler = this.changeEmailHandler.bind(this);
 		this.saveEmployee = this.saveEmployee.bind(this);
+	}
+
+	componentDidMount() {
+		if (this.state.id === '_add') {
+			return;
+		} else {
+			EmployeeService.getEmployeeById(this.state.id).then((res) => {
+				let employee = res.data;
+				this.setState({
+					firstName: employee.firstName,
+					lastName: employee.lastName,
+					email: employee.email,
+				});
+			});
+		}
 	}
 
 	changeFirstNameHandler(event) {
@@ -37,13 +53,27 @@ export default class EmployeeForm extends Component {
 			email: this.state.email,
 		};
 
-		EmployeeService.createEmployee(employees).then((res) => {
-			this.props.history.push('/');
-		});
+		if (this.state.id === '_add') {
+			EmployeeService.createEmployee(employees).then((res) => {
+				this.props.history.push('/');
+			});
+		} else {
+			EmployeeService.updateEmployee(employees, this.state.id).then(
+				(res) => this.props.history.push('/')
+			);
+		}
 	}
 
 	cancel() {
 		this.props.history.push('/');
+	}
+
+	getTitle() {
+		if (this.state.id === '_add') {
+			return <h3 className="text-center">Add Employee</h3>;
+		} else {
+			return <h3 className="text-center">Update Employee</h3>;
+		}
 	}
 
 	render() {
@@ -51,7 +81,7 @@ export default class EmployeeForm extends Component {
 			<div className="container">
 				<div className="row">
 					<div className="card col-md-6 offset-md-3">
-						<h3 className="text-center">Add Employee</h3>
+						{this.getTitle()}
 						<div className="card-body">
 							<form>
 								<div className="form-group">
