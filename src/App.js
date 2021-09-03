@@ -17,10 +17,6 @@ function App() {
 							path="/add-employee/:id"
 							component={EmployeeForm}
 						/>
-						{/* <Route
-							path="/update-employee/:id"
-							component={UpdateEmployee}
-						/> */}
 					</Switch>
 				</div>
 				<Footer />
