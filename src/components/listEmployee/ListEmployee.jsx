@@ -39,6 +39,10 @@ export default class ListEmployee extends Component {
 		});
 	}
 
+	detailEmployee(id) {
+		this.props.history.push(`/employee/${id}`);
+	}
+
 	render() {
 		return (
 			<div>
@@ -88,6 +92,17 @@ export default class ListEmployee extends Component {
 												className="btn btn-danger"
 											>
 												Delete
+											</button>
+
+											<button
+												onClick={() =>
+													this.detailEmployee(
+														employee.id
+													)
+												}
+												className="btn btn-success"
+											>
+												Detail
 											</button>
 										</div>
 									</td>
